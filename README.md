@@ -30,3 +30,10 @@ REST Assignment #1
 > Application, Controller and Name.  Also you must include screenshots
 > of your ARC or Postman results, one showing the list of names and
 > one showing the single name.
+
+In Action
+---------
+
+![Listing all Names](./.img/list_names.png)
+
+![Selecting a specific Name](./.img/name_by_id.png)
