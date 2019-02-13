@@ -1,16 +1,25 @@
 package edu.ggc.itec4860.rest;
 
 import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Iterator;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class FrobController
 {
-    private List<Name> names = Arrays.asList(new Name(1, "Jimothy"),
-                                             new Name(2, "Erasmus"),
-                                             new Name(3, "Hamnett"));
+    private static int id = 3;
+    private static HashMap<Integer, Name> names;
+    static {
+	names = new HashMap<>();
+	names.put(1, new Name(1, "Jimothy"));
+	names.put(2, new Name(2, "Erasmus"));
+	names.put(3, new Name(3, "Hamnett"));
+    };
 
     /**
      * Show all the Names in the system.
@@ -20,7 +29,13 @@ public class FrobController
     @RequestMapping(value="/names", method=RequestMethod.GET)
     public List<Name> getNames()
     {
-        return this.names;
+	List<Name> results = new ArrayList<Name>();
+
+	for (Map.Entry<Integer, Name> n : this.names.entrySet()) {
+	    results.add(n.getValue());
+	}
+
+	return results;
     }
 
     /**
@@ -33,11 +48,38 @@ public class FrobController
     @RequestMapping(value="/names/{id}", method=RequestMethod.GET)
     public String getName(@PathVariable int id)
     {
-        // java.util.Stream ~❤️
-        return names.stream()
-            .filter(n -> n.id == id)
-            .findFirst()
-            .orElse(new Name()).name;
-        // Like, I'm not sure how we should fail gracefully here.
+	return this.names.getOrDefault(id, new Name()).name;
+    }
+
+    /**
+     * Insert a Name into the system.
+     *
+     * @param input a Name to insert.
+     * @return the Name input.
+     */
+    @RequestMapping(value="/sendName", method=RequestMethod.POST)
+    public Name createName(@RequestBody Name input)
+    {
+	// get() only returns a value's previous value (even null).
+	// Like what is up with null being a side effect rather than a
+	// dedicated type? Even Kotlin and Crystal do that right.
+	this.names.put(input.id, input);
+	return input;
+    }
+
+    /**
+     * Add Names into the system.
+     *
+     * @param input the list of Names to insert.
+     * @return the Names inserted.
+     */
+    @RequestMapping(value="/sendNames", method=RequestMethod.POST)
+    public List<Name> createNames(@RequestBody List<Name> input)
+    {
+	for (Name n : input) {
+	    this.names.put(n.id, n);
+	}
+
+	return input;
     }
 }
