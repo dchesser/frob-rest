@@ -37,3 +37,39 @@ In Action
 ![Listing all Names](./.img/list_names.png)
 
 ![Selecting a specific Name](./.img/name_by_id.png)
+
+REST Assignment #2
+==================
+
+> In this assignment, we will be adding the handling of POST messages
+> to our RESTful server.  Begin with the `NamesController`, or
+> whatever you called your project created in REST 1. To this we will
+> add a couple of methods to handle POST messages. Depending on your
+> implementation for REST 1, you may have to modify your code to store
+> a `List<Name>` of the original Name object you created in
+> REST 1. You will add the new object to this `List`. Your choice on
+> what type of `List` data structure you would like to use.
+>
+> You will need to write two methods, one accepts a single `Name`
+> object and one to accept a `List` of Name objects. These will both
+> use JSON to send the Name object(s) to the server. This will require
+> you to create JSON in ARC to send to the server. The method,
+> createName should add the Name object to the `List` on the server
+> side and update the ID appropriately. This should return the Name
+> object that has been added to the `List`. To test, you should then
+> use your get method to retrieve all `Name` objects and ensure that
+> your new Name object is stored in the List.  For the second method,
+> you will be sending a `List<Name>` to the server. These `Name`
+> objects should have their ID adjusted and be stored in your
+> `List`. Again, when you have executed this, you should retrieve the
+> entire list and display the `Name` objects from the `List` in the
+> ARC.  Finally, use your GET method to retrieve a `Name` object that
+> you added when you sent your `List`.
+
+In Action
+---------
+
+![Adding a Name](./.img/add_name.png)
+![Sending multiple Names](./.img/send_names.png)
+![Showing a Name we just added](./.img/show_added_name.png)
+![List of Names after doing all the insertion](./.img/all_new_names.png)
