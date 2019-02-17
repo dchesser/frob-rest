@@ -45,9 +45,9 @@ public class FrobController
 	Name result = this.names.get(id);
 
 	if (result != null) {
-	    throw new NonexistantNameException(id);
-	} else {
 	    return result.name;
+	} else {
+	    throw new NonexistantNameException(id);
 	}
     }
 
@@ -60,11 +60,9 @@ public class FrobController
     @RequestMapping(value="/sendName", method=RequestMethod.POST)
     public Name createName(@RequestBody Name input)
     {
-	// get() only returns a value's previous value (even null).
-	// Like what is up with null being a side effect rather than a
-	// dedicated type? Even Kotlin and Crystal do that right.
-	this.names.put(input.id, input);
-	return input;
+	Name tempName = new Name(++id, input.name);
+	this.names.put(id, tempName);
+	return tempName;
     }
 
     /**
@@ -76,10 +74,12 @@ public class FrobController
     @RequestMapping(value="/sendNames", method=RequestMethod.POST)
     public List<Name> createNames(@RequestBody List<Name> input)
     {
+	List<Name> added = new ArrayList<Name>(input.size());
+
 	for (Name n : input) {
-	    this.names.put(n.id, n);
+	    added.add(createName(n));
 	}
 
-	return input;
+	return added;
     }
 }
