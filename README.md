@@ -73,3 +73,27 @@ In Action
 ![Sending multiple Names](./.img/send_names.png)
 ![Showing a Name we just added](./.img/show_added_name.png)
 ![List of Names after doing all the insertion](./.img/all_new_names.png)
+
+REST Assignment #3
+==================
+
+> In this assignment, we will be adding the handling of PUT
+> and DELETE messages to our Names application. Continue
+> with your existing NamesController and add a method that
+> accepts a JSON object with a PUT message type. This method
+> should use the JSON object passed to it to update the
+> specific item in your Names List. If the item is not in
+> the List, a suitable error message should be thrown. You
+> will need to GET and display the element modified after
+> you execute the PUT message. We will also implement
+> DELETE. To test this, you should first GET the List of
+> Names and then DELETE one of the elements and then do
+> another GET to ensure that it has been removed from the
+> List. Again, you should write code to handle an item not
+> being found in your List.
+> 
+> You should modify your single name get to return a 404 if
+> your name is not found.
+> 
+> You should submit your java files, no need for screenshots
+> this time.

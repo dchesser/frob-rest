@@ -82,4 +82,38 @@ public class FrobController
 
 	return added;
     }
+
+    /**
+     * Change a Name if it exists in the system already.
+     *
+     * @param input the Name to make a change to and its result.
+     * @return the Name.
+     */
+    @RequestMapping(value="/names", method=RequestMethod.PUT)
+    public Name updateName(@RequestBody Name input)
+    {
+	// Will be NULL if this ID already has a mapping.
+	Name result = this.names.replace(input.id, input);
+
+	if (result == null) {
+	    throw new NonexistantNameException(input.id);
+	}
+
+	return input;
+   }
+
+    /**
+     * Remove a Name from the system if it exists.
+     *
+     * @param id the ID of the Name to remove.
+     */
+    @RequestMapping(value="/names/{id}", method=RequestMethod.DELETE)
+    public void removeName(@PathVariable int id)
+    {
+	Name result = this.names.remove(id);
+
+	if (result == null) {
+	    throw new NonexistantNameException(id);
+	}
+    }
 }
