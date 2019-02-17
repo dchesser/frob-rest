@@ -1,12 +1,6 @@
 package edu.ggc.itec4860.rest;
 
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Iterator;
+import java.util.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -48,7 +42,13 @@ public class FrobController
     @RequestMapping(value="/names/{id}", method=RequestMethod.GET)
     public String getName(@PathVariable int id)
     {
-	return this.names.getOrDefault(id, new Name()).name;
+	Name result = this.names.get(id);
+
+	if (result != null) {
+	    throw new NonexistantNameException(id);
+	} else {
+	    return result.name;
+	}
     }
 
     /**
