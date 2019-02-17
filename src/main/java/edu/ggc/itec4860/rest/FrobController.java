@@ -38,6 +38,7 @@ public class FrobController
      * @param id the ID to look up.
      * @return the name associated with the ID. If not, returns an
      * empty string.
+     * @throws NonexistantNameException if the Name does not exist.
      */
     @RequestMapping(value="/names/{id}", method=RequestMethod.GET)
     public String getName(@PathVariable int id)
@@ -88,6 +89,7 @@ public class FrobController
      *
      * @param input the Name to make a change to and its result.
      * @return the Name.
+     * @throws NonexistantNameException if the Name does not exist.
      */
     @RequestMapping(value="/names", method=RequestMethod.PUT)
     public Name updateName(@RequestBody Name input)
@@ -106,6 +108,7 @@ public class FrobController
      * Remove a Name from the system if it exists.
      *
      * @param id the ID of the Name to remove.
+     * @throws NonexistantNameException if the Name does not exist.
      */
     @RequestMapping(value="/names/{id}", method=RequestMethod.DELETE)
     public void removeName(@PathVariable int id)
